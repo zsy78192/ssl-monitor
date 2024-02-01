@@ -27,6 +27,8 @@ class Database {
             username: process.env.DB_USER,
             password: process.env.DB_PASS,
             database: process.env.DB_NAME,
+            // 关闭log
+            logging: false,
         })
 
 

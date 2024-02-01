@@ -123,18 +123,25 @@ let update_all = async () => {
     // 遍历
     for (let website of websites) {
         // 查询网站的证书
-        const result = await getSSLCertificateExpirationDate(website.host);
-        // 更新数据库
-        await db.updateWebsite(website.id, {
-            ssl: result.expirationDate
-        });
+        try {
+            const result = await getSSLCertificateExpirationDate(website.host);
+            // 更新数据库
+
+            await db.updateWebsite(website.id, {
+                ssl: result.expirationDate
+            });
+        } catch (e) {
+            console.log("error", e);
+            continue
+        }
 
         // 证书过期时间
         const ssl = new Date(website.ssl);
         // 距离过期还有多少天
         const days = Math.floor((ssl - new Date()) / 1000 / 60 / 60 / 24);
         // 如果小于30天
-        if (days < 365) {
+        console.log(days, website.name);
+        if (days < 10) {
             // 发送邮件
             let mail = new Mail();
             await mail.sendWebsiteMail(website);
