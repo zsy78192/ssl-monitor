@@ -69,7 +69,7 @@ router.post('/website/delete/:id', async (ctx, next) => {
 router.post('/login', async (ctx, next) => {
     const username = ctx.request.body.username;
     const password = ctx.request.body.password;
-    console.log(username, password);
+    // console.log(username, password);
     const token = await db.login(username, password);
     ctx.body = {
         token: token

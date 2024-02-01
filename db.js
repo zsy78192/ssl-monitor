@@ -116,19 +116,20 @@ class Database {
     }
 
     // login
-    login(username, password) {
+    async login(username, password) {
         // username 和 password 不能为空
         if (!username || !password) {
             return null;
         }
         // password sha1
-        crypto.createHash('sha1').update(password).digest('hex')
-        let user = this.User.findOne({
+        let pwd = crypto.createHash('sha1').update(password).digest('hex')
+        let user = await this.User.findOne({
             where: {
                 username: username,
-                password: password
+                password: pwd
             }
         });
+        // console.log(user);
         if (user) {
             return jwt.sign({
                 username: user.username,
