@@ -155,4 +155,4 @@ let update_all = async () => {
 // 5分钟检查一次
 setInterval(async () => {
     await update_all()
-}, 1000 * 60 * 3600);
+}, 1000 * 3600);

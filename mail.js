@@ -4,6 +4,7 @@ var nodemailer = require('nodemailer');
 require('dotenv').config();
 
 class Mail {
+
     constructor() {
         this.transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST,
@@ -39,12 +40,3 @@ class Mail {
 }
 
 exports.Mail = Mail;
-
-// test
-// const mail = new Mail();
-// mail.sendMail('413892424@qq.com',
-//     'test',
-//     '<a href="https://www.baidu.com">test</a>'
-// );
-
-
