@@ -135,8 +135,9 @@ let update_all = async () => {
             continue
         }
 
+        let ssl_expired = result.expirationDate
         // 证书过期时间
-        const ssl = new Date(website.ssl);
+        const ssl = new Date(ssl_expired);
         // 距离过期还有多少天
         const days = Math.floor((ssl - new Date()) / 1000 / 60 / 60 / 24);
         // 如果小于30天
