@@ -7,11 +7,12 @@ function getSSLCertificateExpirationDate(hostname, port = 443) {
         const options = {
             host: hostname,
             port: port,
+            rejectUnauthorized: false,
         };
 
         const socket = tls.connect(options, () => {
             const cert = socket.getPeerCertificate();
-            console.log(cert);
+            // console.log(cert);
             const expirationDate = new Date(cert.valid_to);
 
             // console.log(`SSL Certificate Expiration Date for ${hostname}:${port}: ${expirationDate}`);
