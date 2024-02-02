@@ -130,22 +130,23 @@ let update_all = async () => {
             await db.updateWebsite(website.id, {
                 ssl: result.expirationDate
             });
+
+
+            let ssl_expired = result.expirationDate
+            // 证书过期时间
+            const ssl = new Date(ssl_expired);
+            // 距离过期还有多少天
+            const days = Math.floor((ssl - new Date()) / 1000 / 60 / 60 / 24);
+            // 如果小于30天
+            console.log(days, website.name);
+            if (days < 10) {
+                // 发送邮件
+                let mail = new Mail();
+                await mail.sendWebsiteMail(website);
+            }
         } catch (e) {
             console.log("error", e);
             continue
-        }
-
-        let ssl_expired = result.expirationDate
-        // 证书过期时间
-        const ssl = new Date(ssl_expired);
-        // 距离过期还有多少天
-        const days = Math.floor((ssl - new Date()) / 1000 / 60 / 60 / 24);
-        // 如果小于30天
-        console.log(days, website.name);
-        if (days < 10) {
-            // 发送邮件
-            let mail = new Mail();
-            await mail.sendWebsiteMail(website);
         }
     }
 }
