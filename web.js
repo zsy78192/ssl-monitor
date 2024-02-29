@@ -139,7 +139,7 @@ let update_all = async () => {
             const days = Math.floor((ssl - new Date()) / 1000 / 60 / 60 / 24);
             // 如果小于30天
             console.log(days, website.name);
-            if (days < 10) {
+            if (days < 3) {
                 // 发送邮件
                 let mail = new Mail();
                 await mail.sendWebsiteMail(website);
