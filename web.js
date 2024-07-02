@@ -6,6 +6,7 @@ const Router = require('koa-router');
 const router = new Router();
 const bodyParser = require('koa-bodyparser');
 const cors = require('koa2-cors');
+const EasyTable = require('easy-table');
 
 const { Database } = require('./db');
 const getSSLCertificateExpirationDate = require('./ssl');
@@ -23,7 +24,24 @@ app.use(bodyParser());
 
 // 首页
 router.get('/', async (ctx, next) => {
-    ctx.body = 'Hello World';
+    const websites = await db.queryAllWebsite();
+    let d = websites.map(i => {
+        return i.dataValues
+    })
+    let t = ['id', 'name', 'host', 'ssl', 'desc'];
+    const table = new EasyTable();
+    let content = d.map(i => {
+        table.cell('id', i.id)
+            .cell('name', i.name)
+            .cell('host', i.host)
+            // .cell('ssl', i.ssl)
+            .cell('days', Math.floor((new Date(i.ssl) - new Date()) / 1000 / 60 / 60 / 24))
+            .cell('desc', i.desc)
+
+            .newRow()
+    })
+    // 返回table
+    ctx.body = table.toString();
 });
 
 // 查询网站
@@ -93,6 +111,10 @@ router.post('/update', async (ctx, next) => {
 app.use(async (ctx, next) => {
     // 排除 login
     if (ctx.url === '/login') {
+        await next();
+        return;
+    }
+    if (ctx.url === '/') {
         await next();
         return;
     }
