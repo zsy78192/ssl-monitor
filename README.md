@@ -78,7 +78,28 @@ node web.js
 
 ## Configuration
 
-- Update the `db.js` and `mail.js` files with your database and email service configurations.
+- Create a `.env` file in the project root directory.
+- Or update the `db.js` and `mail.js` files with your database and email service configurations.
+
+Env file example:
+
+```
+DB_NAME = 
+DB_USER = 
+DB_PASS = 
+DB_HOST = 
+# default admin password
+ADMIN_PASS = 
+# JWT_SECRET
+JWT_SECRET = 
+
+SMTP_HOST = 
+SMTP_PORT = 
+SMTP_USER = 
+SMTP_PASS = 
+```
+
+JWT_SECRET is used for token-based authentication, usually a random string with a minimum length of 32 characters.
 
 ## Contributing
 
