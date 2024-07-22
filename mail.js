@@ -32,8 +32,8 @@ class Mail {
         let info = await this.transporter.sendMail({
             from: process.env.SMTP_USER,
             to: process.env.SMTP_USER,
-            subject: `[重要提示] 网站 ${website.name} ssl 证书即将过期`,
-            html: `网站 ${website.host} ssl 证书即将过期, 请及时更新, 证书过期时间 ${website.ssl}，距离过期还有 ${Math.floor((website.ssl - new Date()) / 1000 / 60 / 60 / 24)} 天`
+            subject: `[Important Reminder] Website ${website.name} SSL Certificate is About to Expire`,
+            html: `The SSL certificate for the website ${website.host} is about to expire. Please update it in time. The certificate expiration date is ${website.ssl}, and there are ${Math.floor((website.ssl - new Date()) / 1000 / 60 / 60 / 24)} days left until expiration.`
         });
         console.log('Message sent: %s', info.messageId);
     }

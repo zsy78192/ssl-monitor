@@ -31,6 +31,7 @@ class Database {
             logging: false,
         })
 
+        this.sequelize = sequelize;
 
 
         //定义表结构，网站表，网站名，网站url，网站ssl到期时间，描述
@@ -104,6 +105,15 @@ class Database {
         });
     }
 
+    // 查询网站by host，host唯一，返回一个
+    queryWebsiteByHost(host) {
+        return this.Website.findOne({
+            where: {
+                host: host
+            }
+        });
+    }
+
     // 查询所有网站
     queryAllWebsite() {
         return this.Website.findAll();
@@ -156,6 +166,10 @@ class Database {
             console.log(e);
             return null;
         }
+    }
+
+    close() {
+        this.sequelize.close();
     }
 }
 
