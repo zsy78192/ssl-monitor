@@ -101,6 +101,31 @@ SMTP_PASS =
 
 JWT_SECRET is used for token-based authentication, usually a random string with a minimum length of 32 characters.
 
+
+## CLI
+
+To use this CLI, run the script with the appropriate command and options:
+
+```sh
+node cmd.js <control> <host> [options]
+```
+
+### Parameters
+
+`<control>`: The operation to perform. Must be one of add, remove, update, or list.
+
+`<host>`: The host of the website. This is required for add, remove, and update commands.
+
+### Options
+`-n, --name <name>`: The name of the website.
+`-d, --desc <desc>`: The description of the website.
+
+### Examples
+
+```sh
+node cmd.js add example.com -n "Example Site" -d "This is an example site."
+```
+
 ## Contributing
 
 Contributions are welcome! Please submit a pull request or create an issue in the GitHub repository.
